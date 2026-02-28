@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Hierarchy Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="logo">ATS <span>PRO</span></div>
+        <div class="nav-links">
+            <span class="msme-tag">MSME Registered Agency</span>
+            <button class="logout-btn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="main-header">
+            <h1>Recruitment Management System</h1>
+            <p>Integrated Hierarchy Workflow: BDE → TL → Recruiter → Client</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h4>10k+</h4>
+                <p>Leads Generated</p>
+            </div>
+            <div class="stat-item">
+                <h4>03</h4>
+                <p>Active Departments</p>
+            </div>
+            <div class="stat-item">
+                <h4>Real-time</h4>
+                <p>ATS Auto-Tracking</p>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <input type="text" placeholder="Search Candidate by ID, Skills or Role...">
+            <button class="btn-primary">Search</button>
+        </div>
+
+        <section class="role-selection">
+            <h2>Select Your Role to Access Portal</h2>
+            <div class="card-grid">
+                <div class="card" onclick="location.href='bde_form.html'">
+                    <div class="icon">💼</div>
+                    <h3>BDE Team</h3>
+                    <p>Create Job Positions & Define Requirements</p>
+                </div>
+
+                <div class="card" onclick="location.href='tl_view.html'">
+                    <div class="icon">👥</div>
+                    <h3>Team Lead (TL)</h3>
+                    <p>Analyze Needs, Allocate Tasks & Review</p>
+                </div>
+
+                <div class="card" onclick="location.href='recruiter_view.html'">
+                    <div class="icon">🔍</div>
+                    <h3>Recruiters</h3>
+                    <p>Source Candidates & Update Profile Data</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="live-status">
+            <h3>Live Hiring Progress Dashboard</h3>
+            <div id="status-dashboard">
+                <p>🟢 System is automatically tracking updates from all departments...</p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 Your Agency Name | **MSME Registered** Govt. of India</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Secure Hierarchy-Based Recruitment Workflow System</p>
+    </footer>
+
+</body>
+</html>

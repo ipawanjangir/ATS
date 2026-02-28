@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TL Dashboard - Advanced ATS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+    <nav class="top-nav">
+        <div class="logo">ATS <span>PRO</span></div>
+        <div class="user-info">
+            <span class="badge">Medical Dept</span> 
+            <button class="back-btn" onclick="location.href='index.html'">Dashboard</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h2>Team Lead Control Center</h2>
+            <p>Managing Requirements & Recruiter Allocations </p>
+        </div>
+
+        <section class="glass-card">
+            <div class="section-title">
+                <h3>Active Requirements from BDE</h3> 
+            </div>
+            <table class="premium-table">
+                <thead>
+                    <tr>
+                        <th>Job Position</th> 
+                        <th>Location</th> 
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Senior Staff Nurse</strong></td>
+                        <td>Jaipur, Rajasthan </td>
+                        <td><span class="status-pill pending">Pending Allocation</span></td>
+                        <td><button class="btn-sm btn-primary">Assign Recruiter</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="glass-card" style="margin-top: 25px;">
+            <div class="section-title">
+                <h3>Submissions for Review (TL → Senior TL)</h3> 
+            </div>
+            <div class="candidate-item">
+                <div class="c-info">
+                    <h4>Rahul Sharma (4 Yrs Exp)</h4>
+                    <p>Source: LinkedIn | Recruiter: Amit Kumar</p>
+                </div>
+                <div class="c-actions">
+                    <button class="btn-sm btn-secondary">View Resume</button> 
+                    <button class="btn-sm btn-success">Approve to Sr. TL</button> 
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>MSME Registered | Hierarchy Workflow Secured </p>
+    </footer>
+</body>
+</html>

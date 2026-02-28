@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard - Candidate Sourcing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="logo">ATS <span>Portal</span></div>
+        <button class="logout-btn" onclick="location.href='index.html'">Back</button>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h2>Recruiter Panel</h2>
+            <p>Source Candidates & Update Information [Source: PDF Step 5]</p>
+        </header>
+
+        <section class="form-section">
+            <h3>Add New Candidate Details</h3>
+            <form id="candidateForm">
+                <div class="form-group">
+                    <label>Candidate Name:</label>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number:</label>
+                    <input type="tel" placeholder="+91..." required>
+                </div>
+
+                <div class="form-group">
+                    <label>Upload Resume (PDF/Doc):</label>
+                    <input type="file" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Status:</label>
+                    <select>
+                        <option>Screening</option>
+                        <option>Interview Scheduled</option>
+                        <option>Documents Collected</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn" style="background:#f39c12;">Submit to TL for Review</button>
+            </form>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>MSME Registered Agency | Secure Candidate Processing</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
