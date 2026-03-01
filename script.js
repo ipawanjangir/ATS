@@ -66,3 +66,34 @@ async function loadJobs() {
 
 // Page load hote hi data dikhao
 document.addEventListener('DOMContentLoaded', loadJobs);
+
+
+async function loadJobsOnDashboard() {
+    const scriptURL = 'YOUR_APPS_SCRIPT_URL_HERE'; // Apna Apps Script URL yahan dalo
+    const tableBody = document.getElementById('jobTableBody');
+
+    if (!tableBody) return; // Agar page par table nahi hai toh error nahi ayega
+
+    try {
+        const response = await fetch(scriptURL); // Ye doGet() ko call karega
+        const data = await response.json();
+
+        tableBody.innerHTML = ''; // Pehle table khali karo
+
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row[0]}</td>
+                <td>${row[1]}</td>
+                <td>${row[2]}</td>
+                <td><button onclick="applyJob()">Apply</button></td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error("Data load error:", error);
+    }
+}
+
+// Page load hote hi function ko chalao
+window.addEventListener('load', loadJobsOnDashboard);
