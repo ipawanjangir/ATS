@@ -1,29 +1,50 @@
- document.getElementById('candidateForm').onsubmit = function(e) {
-            e.preventDefault();
-            alert("Candidate profile updated and shared with Team Lead. [Source: PDF Step 8]");
-            location.href='index.html';
-        };
+// Function to send data to Google Sheets
+async function submitData(payload) {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxi-DUIbwRvX2HJ3s6dUn57sU3-bsZChjFxfGoiHHKMtrcev5j9nKtL_fFVXZTLzv0/exec';
 
-          document.getElementById('jobForm').onsubmit = function(e) {
-            e.preventDefault();
-            alert("Success! Job created and assigned to Department. Dashboard updated automatically.");
-            location.href='index.html';
-        };
-
-        // Example for BDE Form Submission
-async function submitData() {
-    const payload = {
-        action: "addJob",
-        role: document.getElementById('role').value,
-        openings: document.getElementById('openings').value,
-        location: document.getElementById('location').value
-    };
-
-    const response = await fetch('https://https://script.google.com/macros/s/AKfycbxi-DUIbwRvX2HJ3s6dUn57sU3-bsZChjFxfGoiHHKMtrcev5j9nKtL_fFVXZTLzv0/exec.google.com/macros/s/AKfycbxi-DUIbwRvX2HJ3s6dUn57sU3-bsZChjFxfGoiHHKMtrcev5j9nKtL_fFVXZTLzv0/exec', {
-        method: 'POST',
-        body: JSON.stringify(payload)
-    });
-    
-    const result = await response.json();
-    if(result.status === 'success') alert("Data Saved to Google Sheet!");
+    try {
+        await fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        alert("Success! Data updated in Google Sheet.");
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error("Error!", error.message);
+        alert("Failed to send data. Check console.");
+    }
 }
+
+// Wait for DOM to load fully
+document.addEventListener('DOMContentLoaded', function() {
+    const jobForm = document.getElementById('jobForm');
+    const candidateForm = document.getElementById('candidateForm');
+
+    // Check if Job Form exists on this page
+    if (jobForm) {
+        jobForm.onsubmit = function(e) {
+            e.preventDefault();
+            const payload = {
+                action: "addJob",
+                role: document.getElementById('role').value,
+                openings: document.getElementById('openings').value,
+                location: document.getElementById('location').value
+            };
+            submitData(payload);
+        };
+    }
+
+    // Check if Candidate Form exists on this page
+    if (candidateForm) {
+        candidateForm.onsubmit = function(e) {
+            e.preventDefault();
+            const payload = {
+                action: "addCandidate",
+                name: document.getElementById('candidateName')?.value || "N/A"
+            };
+            submitData(payload);
+        };
+    }
+});
