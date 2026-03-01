@@ -38,3 +38,31 @@ async function submitData(payload) {
         console.error("Error:", err);
     }
 }
+
+async function loadJobs() {
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxi-DUIbwRvX2HJ3s6dUn57sU3-bsZChjFxfGoiHHKMtrcev5j9nKtL_fFVXZTLzv0/exec'; // Apna V4 wala URL dalo
+    const tableBody = document.getElementById('jobTableBody');
+
+    try {
+        const response = await fetch(scriptURL);
+        const data = await response.json();
+
+        tableBody.innerHTML = ''; // Purana data saaf karne ke liye
+
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${row[0]}</td>
+                <td>${row[1]}</td>
+                <td>${row[2]}</td>
+                <td><button class="apply-btn">Apply Now</button></td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error("Data load nahi hua:", error);
+    }
+}
+
+// Page load hote hi data dikhao
+document.addEventListener('DOMContentLoaded', loadJobs);
