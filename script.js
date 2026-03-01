@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Common Function to send data
 async function submitData(payload) {
-    const scriptURL = 'YOUR_APPS_SCRIPT_URL_HERE'; // Apna naya URL yahan dalo
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxi-DUIbwRvX2HJ3s6dUn57sU3-bsZChjFxfGoiHHKMtrcev5j9nKtL_fFVXZTLzv0/exec'; // Apna naya URL yahan dalo
     try {
         await fetch(scriptURL, {
             method: 'POST',
