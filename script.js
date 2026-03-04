@@ -157,3 +157,23 @@ if (candidateForm) {
         if (typeof renderTLTable === "function") renderTLTable();
     };
 }
+
+window.fixInterview = function(phone, name) {
+    const date = prompt(`Interview date for ${name}:`, "Tomorrow 11:00 AM");
+    const location = prompt(`Interview Location (Office/Online):`, "Our Office");
+
+    if (date && location) {
+        // Phone number format sahi karna
+        let cleanPhone = phone.toString().replace(/\D/g, '');
+        if (cleanPhone.length === 10) cleanPhone = "91" + cleanPhone;
+
+        // Aapka bataya hua Message Format
+        const msg = `Hello ${name}, Your Interview Is Fixed .
+📅 Date: ${date}
+📍 Location: ${location}
+Regards: Jangir IT Solution`;
+
+        // WhatsApp link open karna
+        window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+};
