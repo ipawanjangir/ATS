@@ -85,3 +85,75 @@ window.applyForJob = (role) => {
         document.getElementById('candidateName').focus();
     }
 };
+
+// 2. BDE Logic Update
+const jobForm = document.getElementById('jobForm');
+if (jobForm) {
+    jobForm.onsubmit = function(e) {
+        e.preventDefault();
+        
+        const role = document.getElementById('role').value;
+        const location = document.getElementById('location').value;
+        const openings = document.getElementById('openings').value;
+
+        // --- Step A: TL Table ke liye data taiyar karna (Interview/Reject buttons ke liye) ---
+        const tlEntry = {
+            id: Date.now(),
+            name: "JOB: " + role, // TL Table mein Name ki jagah Role dikhega
+            phone: location,      // Phone ki jagah Location dikhegi
+            status: 'Pending Review'
+        };
+        let submissions = JSON.parse(localStorage.getItem('tlData')) || [];
+        submissions.push(tlEntry);
+        localStorage.setItem('tlData', JSON.stringify(submissions));
+
+        // --- Step B: Recruiter Table ke liye data taiyar karna ---
+        const newJob = {
+            id: Date.now(),
+            role: role,
+            location: location,
+            openings: openings
+        };
+        let jobs = JSON.parse(localStorage.getItem('allJobs')) || [];
+        jobs.push(newJob);
+        localStorage.setItem('allJobs', JSON.stringify(jobs));
+
+        alert("Requirement Sent! Ab ye TL aur Recruiter dono ko dikhega.");
+        this.reset();
+        
+        // Agar aap chahte hain ki form bharte hi Dashboard par chale jayein
+        // window.location.href = 'index.html'; 
+    };
+}
+
+// Recruiter Form Submission Logic
+const candidateForm = document.getElementById('candidateForm');
+if (candidateForm) {
+    candidateForm.onsubmit = function(e) {
+        e.preventDefault();
+
+        // Data capture karna
+        const name = document.getElementById('candidateName').value;
+        const phone = document.getElementById('candidatePhone').value;
+        const status = document.getElementById('status').value;
+
+        // TL ke liye naya object banana
+        const newSubmission = {
+            id: Date.now(),
+            name: name,
+            phone: phone,
+            status: status
+        };
+
+        // tlData (Local Storage) mein save karna
+        let submissions = JSON.parse(localStorage.getItem('tlData')) || [];
+        submissions.push(newSubmission);
+        localStorage.setItem('tlData', JSON.stringify(submissions));
+
+        alert("Candidate " + name + " sent to TL successfully!");
+        this.reset(); // Form clear karne ke liye
+        
+        // Agar TL table refresh karni ho (agar usi page par hai)
+        if (typeof renderTLTable === "function") renderTLTable();
+    };
+}
