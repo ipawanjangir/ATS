@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("ATS System Master Script Active...");
+    console.log("ATS System Restored...");
 
-    // Render Tables on Load
+    // 1. Load Tables
     if (document.getElementById('submissionsTableBody')) renderTLTable();
     if (document.getElementById('jobTableBody')) renderJobsInRecruiterTable();
 
-    // BDE Job Form
+    // 2. BDE Logic
     const jobForm = document.getElementById('jobForm');
     if (jobForm) {
         jobForm.onsubmit = function(e) {
@@ -19,53 +19,51 @@ document.addEventListener('DOMContentLoaded', function() {
             let jobs = JSON.parse(localStorage.getItem('allJobs')) || [];
             jobs.push(newJob);
             localStorage.setItem('allJobs', JSON.stringify(jobs));
-            alert("Job Created & Assigned!");
-            location.href = 'index.html';
+            alert("Job Position Created!");
+            this.reset();
         };
     }
 });
 
-// Render Jobs for Recruiter
 function renderJobsInRecruiterTable() {
     const tableBody = document.getElementById('jobTableBody');
     let jobs = JSON.parse(localStorage.getItem('allJobs')) || [];
-    if(!tableBody) return;
+    if (!tableBody) return;
+
     tableBody.innerHTML = jobs.map(job => `
         <tr>
-            <td><strong>${job.role}</strong></td>
+            <td>${job.role}</td>
             <td>${job.openings}</td>
             <td>${job.location}</td>
-            <td><button class="btn btn-sm btn-primary" onclick="alert('Sourcing for ${job.role}')">Source</button></td>
+            <td><button onclick="applyForJob('${job.role}')">Source</button></td>
         </tr>
-    `).join('') || '<tr><td colspan="4">No active requirements.</td></tr>';
+    `).join('') || '<tr><td colspan="4">No jobs available.</td></tr>';
 }
 
-// Render Submissions for TL
 function renderTLTable() {
     const tableBody = document.getElementById('submissionsTableBody');
     let submissions = JSON.parse(localStorage.getItem('tlData')) || [];
-    if(!tableBody) return;
+    if (!tableBody) return;
     tableBody.innerHTML = submissions.map(item => `
         <tr>
             <td>${item.name}</td>
             <td>${item.phone}</td>
-            <td><span class="badge bg-warning text-dark">${item.status}</span></td>
+            <td>${item.status}</td>
             <td>
-                <button onclick="fixInterview('${item.phone}', '${item.name}')" class="btn btn-sm btn-success">✅ Interview</button>
-                <button onclick="deleteEntry(${item.id})" class="btn btn-sm btn-danger">❌</button>
+                <button onclick="fixInterview('${item.phone}', '${item.name}')" style="background:green; color:white;">Interview</button>
+                <button onclick="deleteEntry(${item.id})" style="background:red; color:white;">Delete</button>
             </td>
         </tr>
-    `).join('') || '<tr><td colspan="4">No pending candidates.</td></tr>';
+    `).join('') || '<tr><td colspan="4">No submissions.</td></tr>';
 }
 
-// Global Actions
 window.fixInterview = function(phone, name) {
-    const date = prompt(`Set Interview Date for ${name}:`, "Tomorrow 11 AM");
+    const date = prompt(`Interview date for ${name}:`, "Tomorrow 11 AM");
     if (date) {
         let cleanPhone = phone.toString().replace(/\D/g, '');
         if (cleanPhone.length === 10) cleanPhone = "91" + cleanPhone;
-        const msg = encodeURIComponent(`Hello ${name}, Your Interview is Fixed for ${date}. Regards: MSME Agency`);
-        window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
+        const msg = `Hello ${name}, Your Interview is Fixed for ${date}. Regards: MSME Agency`;
+        window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 };
 
@@ -73,4 +71,17 @@ window.deleteEntry = (id) => {
     let sub = JSON.parse(localStorage.getItem('tlData')).filter(e => e.id !== id);
     localStorage.setItem('tlData', JSON.stringify(sub));
     renderTLTable();
+};
+
+window.applyForJob = (role) => {
+    // Alert dikhayega
+    alert("Ab aap " + role + " ke liye candidates add kar sakte hain.");
+    
+    // Candidate Form tak auto-scroll karega
+    const form = document.getElementById('candidateForm');
+    if(form) {
+        form.scrollIntoView({ behavior: 'smooth' });
+        // Name field par focus karega taaki recruiter typing shuru kar sake
+        document.getElementById('candidateName').focus();
+    }
 };

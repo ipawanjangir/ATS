@@ -1,13 +1,12 @@
-/* --- Original General Styling --- */
+/* --- Original Desktop Layout --- */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f7f6;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     color: #333;
 }
 
-/* --- Top Navigation Bar --- */
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -30,7 +29,6 @@ body {
     cursor: pointer;
 }
 
-/* --- Main Container --- */
 .container {
     max-width: 1000px;
     margin: auto;
@@ -47,10 +45,29 @@ header {
     padding-bottom: 10px;
 }
 
-header h1 {
-    color: #2c3e50;
-    margin-bottom: 5px;
+/* --- Table Styling (Original Blue) --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
 }
+
+th {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+tr:hover { background-color: #f1f1f1; }
 
 /* --- Role Selection Cards --- */
 .card-grid {
@@ -74,46 +91,15 @@ header h1 {
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 20px rgba(52, 152, 219, 0.2);
-    background-color: #f9fbff;
-}
-
-/* --- Table Styling --- */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-th {
-    background-color: #007bff;
-    color: white;
-    padding: 12px;
-    text-align: left;
-    text-transform: uppercase;
-    font-size: 14px;
-}
-
-td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    color: #333;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
 }
 
 /* --- Form Styling --- */
-.form-group {
-    margin-bottom: 15px;
-}
-
 input, select, button {
     padding: 12px;
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 1rem;
-    width: 100%; /* Forms mein full width sahi lagti hai */
+    margin-bottom: 10px;
 }
 
 button {
@@ -122,12 +108,6 @@ button {
     border: none;
     cursor: pointer;
     font-weight: bold;
-    width: auto;
-    padding: 10px 25px;
-}
-
-button:hover {
-    background-color: #219150;
 }
 
 /* --- Stats Grid --- */
@@ -141,23 +121,93 @@ button:hover {
     border: 1px dashed #3498db;
 }
 
-.stat-item { text-align: center; }
-
-/* --- Footer --- */
-.footer {
-    text-align: center;
-    margin-top: 40px;
-    padding: 20px;
-    border-top: 1px solid #ddd;
-    color: #7f8c8d;
+/* Container ko flex banaya taaki content bich mein rahe */
+.container {
+    max-width: 800px; /* Form ke liye width thodi kam rakhi hai taaki clean dikhe */
+    margin: 50px auto; /* Top-Bottom gap aur Auto-margin se center */
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* --- Glass Card for TL/Recruiter --- */
-.glass-card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
-    border-left: 5px solid #3498db;
+/* Form ke saare elements ko center alignment dene ke liye */
+#jobForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Inputs ke bich ka gap */
+    max-width: 600px; /* Form ki width restrict ki */
+    margin: 0 auto; /* Form khud container ke andar center ho jaye */
+}
+
+/* Labels ko thoda bold aur clean dikhane ke liye */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Text left rahega par box center */
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Submit button ko center karne ke liye */
+.submit-btn {
+    align-self: center;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+/* --- Role Selection Section --- */
+.role-selection {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Card Grid ko Flexbox se ek line mein align karna */
+.card-grid {
+    display: flex;
+    justify-content: center; /* Center mein alignment */
+    align-items: stretch;
+    gap: 20px; /* Cards ke bich ka gap */
+    margin-top: 25px;
+    flex-wrap: nowrap; /* Force karega ki ek hi line mein rahe */
+}
+
+/* Card ki width fix karna taaki wo fail na jaye */
+.card {
+    flex: 1; /* Teeno cards barabar space lenge */
+    max-width: 300px; /* Zyada bade na ho jayein */
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-top: 5px solid #3498db;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Hover effect pehle jaisa */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.2);
+    background-color: #f9fbff;
+}
+
+/* Mobile responsive patch (Chhote phone par stack ho jayein) */
+@media screen and (max-width: 768px) {
+    .card-grid {
+        flex-wrap: wrap; /* Mobile par upar-niche aa jayenge taaki khrab na lage */
+    }
+    .card {
+        max-width: 100%;
+        flex: 1 1 100%;
+    }
 }
