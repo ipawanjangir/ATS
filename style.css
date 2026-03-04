@@ -1,138 +1,111 @@
-/* --- Global Styling --- */
+/* --- Global Reset --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Roboto, sans-serif;
     background-color: #f4f7f6;
-    margin: 0;
-    padding: 0;
     color: #333;
+    line-height: 1.6;
 }
 
-/* --- Top Navigation --- */
+/* --- Navigation --- */
 .top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #2c3e50;
     color: white;
-    padding: 10px 40px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px 20px;
+    flex-wrap: wrap; /* Mobile fix */
 }
 
-.logo { font-size: 1.5rem; font-weight: bold; }
 .logo span { color: #3498db; }
 
-.logout-btn, .back-btn {
-    background: #e74c3c;
-    padding: 6px 15px;
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-}
-
-/* --- Main Container --- */
+/* --- Layout Container --- */
 .container {
-    max-width: 1000px;
-    margin: 30px auto;
+    max-width: 1100px;
+    margin: 20px auto;
     background: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-header {
+/* --- Dashboard Stats & Cards --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border-top: 5px solid #3498db;
     text-align: center;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 15px;
+    transition: 0.3s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* --- Table Styling --- */
+/* --- Table Styling (The Secret Sauce) --- */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    margin: 15px 0;
 }
 
 th {
-    background-color: #007bff;
+    background: #007bff;
     color: white;
     padding: 12px;
-    text-align: left;
     text-transform: uppercase;
     font-size: 13px;
 }
 
-td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-}
+td { padding: 12px; border-bottom: 1px solid #eee; }
 
-/* --- Glass Card Style (TL Section) --- */
-.glass-card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 5px solid #3498db;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-/* --- Forms --- */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-input, select, button {
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-.submit-btn {
-    background: #27ae60;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-/* --- RESPONSIVE MEDIA QUERY (Mobile) --- */
+/* --- Mobile Responsive Queries --- */
 @media screen and (max-width: 768px) {
     .top-nav {
-        padding: 15px;
-        flex-direction: column;
+        justify-content: center;
+        text-align: center;
         gap: 10px;
     }
 
     .container {
-        padding: 15px;
         margin: 10px;
-        width: auto;
+        padding: 15px;
     }
 
-    /* Table to Card Conversion */
+    .main-header h1 { font-size: 1.5rem; }
+
+    /* Table to Card View: Mobile par table stack ho jayegi */
     table, thead, tbody, th, td, tr {
         display: block;
     }
 
-    thead {
-        display: none; /* Mobile pe headers hide */
+    thead tr {
+        display: none; /* Desktop headers hide */
     }
 
     tr {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         border: 1px solid #3498db;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        overflow: hidden;
+        border-radius: 8px;
+        background: white;
     }
 
     td {
@@ -140,27 +113,29 @@ input, select, button {
         justify-content: space-between;
         align-items: center;
         text-align: right;
-        padding: 12px 15px;
         border-bottom: 1px solid #f0f0f0;
+        padding-left: 50%; /* Space for label */
+        position: relative;
     }
 
-    /* Mobile Label Insertion */
+    /* Injects column name as label on the left */
     td::before {
         content: attr(data-label);
+        position: absolute;
+        left: 15px;
         font-weight: bold;
-        color: #2c3e50;
         text-transform: uppercase;
         font-size: 11px;
-        float: left;
+        color: #2c3e50;
     }
 
     td:last-child {
         background: #f8f9fa;
         justify-content: center;
-        gap: 10px;
-    }
-
-    input, select, button {
-        font-size: 16px; /* Mobile keyboard zoom fix */
+        padding-left: 12px;
     }
 }
+
+/* Form Fixes */
+.form-group { margin-bottom: 15px; }
+input, select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
